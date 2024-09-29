@@ -4,7 +4,7 @@ import ProductCard from "./ProductCard";
 
 const Product = () => {
 const products = useSelector((state)=> state.products);
-
+console.log(products)
   return (
     <main className="py-16">
       <div className="productWrapper">

@@ -22,6 +22,7 @@ export const reducer = (state = initialState, action) => {
           category,
           price,
           quantity,
+          initialQuantity: quantity
         },
       ];
     }
