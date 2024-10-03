@@ -1,7 +1,18 @@
 
+import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/images/logo.png';
+import { setSearchTerm } from '../redux/books/actions';
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const searchText = useSelector((state) => state.searchTerm);
+
+  const handleSearchChange = (e) => {
+    const text = e.target.value;
+    dispatch(setSearchTerm(text));
+  };
+
+
   return (
     <nav className="py-4 2xl:px-6">
       <div className="container flex items-center justify-between">
@@ -28,6 +39,8 @@ const Navbar = () => {
               placeholder="Filter books..."
               className="search"
               id="lws-searchBook"
+              value={searchText}
+              onChange={handleSearchChange}
             />
           </div>
         </form>

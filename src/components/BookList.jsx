@@ -1,23 +1,30 @@
 import { useDispatch, useSelector } from "react-redux";
 import Book from "./Book";
 import { useEffect } from "react";
-import fetchAllBooks from '../redux/books/thunk/fetchAllBooks';
+import fetchAllBooks from "../redux/books/thunk/fetchAllBooks";
 
 const BookList = () => {
-    const books = useSelector((state)=> state.books);
-    const dispatch = useDispatch();
+  const books = useSelector((state) => state.books);
+  const searchTerm = useSelector((state) => state.searchTerm);
+  const dispatch = useDispatch();
 
-    useEffect(()=>{
-        dispatch(fetchAllBooks)
-    },[dispatch])
-    
+  useEffect(() => {
+    dispatch(fetchAllBooks);
+  }, [dispatch]);
+
+  const filteredBooks = searchTerm
+    ? books.filter((book) =>
+        book.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : books;
+
   return (
     <div className="lws-bookContainer">
-        {
-            books.length > 0 ? books?.map((book)=><Book key={book.id} book={book} />)
-            
-            : <p>No Books Found.Please Add One</p>
-        }
+      {filteredBooks.length > 0 ? (
+        filteredBooks.map((book) => <Book key={book.id} book={book} />)
+      ) : (
+        <p className="text-lg text-purple-700">No Books Found Here...Please Add One</p>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { ADDED, DELETED, LOADED } from "./actionTypes"
+import { ADDED, DELETED, LOADED, SEARCH_TERM } from "./actionTypes"
 
 export const loaded = (books) => {
     return {
@@ -6,6 +6,13 @@ export const loaded = (books) => {
         payload: books
     }
 }
+
+export const setSearchTerm = (term) => {
+    return {
+      type: SEARCH_TERM,
+      payload: term,
+    };
+  };
 
 export const added = (book) => {
     return {
@@ -20,3 +27,7 @@ export const deleted = (bookId) => {
         payload: bookId
     }
 }
+
+
+
+

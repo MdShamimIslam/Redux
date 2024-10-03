@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import addBook from "../redux/books/thunk/addBook";
+
+
 const Form = () => {
-  const { register, handleSubmit} = useForm();
+  const { register, handleSubmit,reset} = useForm();
   const dispatch = useDispatch();
 
   const onSubmit = ({name,author,thumbnail,price,rating,featured}) => {
@@ -16,9 +18,10 @@ const Form = () => {
 
     }
     dispatch(addBook(bookInfo));
-    // TODO-->
-    // reset();
+    reset();
   };
+
+
 
   return (
     <div className="p-4 overflow-hidden bg-white shadow-cardShadow rounded-md">

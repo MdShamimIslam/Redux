@@ -11,6 +11,8 @@ const Book = ({ book }) => {
     dispatch(deleteBook(id));
   };
 
+  
+
   return (
     <div className="book-card">
       <img
