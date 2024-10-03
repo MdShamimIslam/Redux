@@ -1,11 +1,33 @@
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import addBook from "../redux/books/thunk/addBook";
 const Form = () => {
+  const { register, handleSubmit} = useForm();
+  const dispatch = useDispatch();
+
+  const onSubmit = ({name,author,thumbnail,price,rating,featured}) => {
+    const bookInfo = {
+      name,
+      author,
+      thumbnail,
+      price: parseFloat(price),
+      featured,
+      rating:parseInt(rating)
+
+    }
+    dispatch(addBook(bookInfo));
+    // TODO-->
+    // reset();
+  };
+
   return (
     <div className="p-4 overflow-hidden bg-white shadow-cardShadow rounded-md">
       <h4 className="mb-8 text-xl font-bold text-center">Add New Book</h4>
-      <form className="book-form">
+      <form className="book-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-2">
           <label htmlFor="name">Book Name</label>
           <input
+            {...register("name")}
             required
             className="text-input"
             type="text"
@@ -17,6 +39,7 @@ const Form = () => {
         <div className="space-y-2">
           <label htmlFor="category">Author</label>
           <input
+            {...register("author")}
             required
             className="text-input"
             type="text"
@@ -28,6 +51,7 @@ const Form = () => {
         <div className="space-y-2">
           <label htmlFor="image">Image Url</label>
           <input
+            {...register("thumbnail")}
             required
             className="text-input"
             type="text"
@@ -40,9 +64,10 @@ const Form = () => {
           <div className="space-y-2">
             <label htmlFor="price">Price</label>
             <input
+              {...register("price")}
               required
               className="text-input"
-              type="number"
+              type="text"
               id="input-Bookprice"
               name="price"
             />
@@ -51,6 +76,7 @@ const Form = () => {
           <div className="space-y-2">
             <label htmlFor="quantity">Rating</label>
             <input
+              {...register("rating")}
               required
               className="text-input"
               type="number"
@@ -64,6 +90,7 @@ const Form = () => {
 
         <div className="flex items-center">
           <input
+            {...register("featured")}
             id="input-Bookfeatured"
             type="checkbox"
             name="featured"

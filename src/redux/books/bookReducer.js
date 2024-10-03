@@ -1,4 +1,5 @@
-import { LOADED } from "./actionTypes";
+
+import { ADDED, DELETED, LOADED } from "./actionTypes";
 import { initialState } from "./initialState";
 
 
@@ -6,7 +7,17 @@ import { initialState } from "./initialState";
     switch (action.type) {
         case LOADED:
             return action.payload;
-            
+
+        case ADDED:
+            return [
+                ...state,
+               {   
+                ...action.payload
+               }
+            ]   
+
+        case DELETED:
+            return state.filter((book)=> book.id !== action.payload)  
     
         default:
             return state;

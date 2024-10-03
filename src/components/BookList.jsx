@@ -10,17 +10,14 @@ const BookList = () => {
     useEffect(()=>{
         dispatch(fetchAllBooks)
     },[dispatch])
-
-   
+    
   return (
     <div className="lws-bookContainer">
-        
         {
             books.length > 0 ? books?.map((book)=><Book key={book.id} book={book} />)
             
             : <p>No Books Found.Please Add One</p>
         }
-        
     </div>
   );
 };
