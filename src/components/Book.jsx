@@ -2,16 +2,19 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { useDispatch } from "react-redux";
 import deleteBook from "../redux/books/thunk/deleteBook";
+import { setSelectedBook } from "../redux/books/actions";
 
 const Book = ({ book }) => {
   const dispatch = useDispatch();
   const { id, name, author, thumbnail, price, rating, featured } = book;
 
+  const handleEdit = (book) => {
+    dispatch(setSelectedBook(book));
+  };
+
   const handleBookDelete = (id) => {
     dispatch(deleteBook(id));
   };
-
-  
 
   return (
     <div className="book-card">
@@ -29,7 +32,7 @@ const Book = ({ book }) => {
           )}
 
           <div className="text-gray-500 space-x-2">
-            <button className="lws-edit">
+            <button onClick={() => handleEdit(book)} className="lws-edit">
               <svg
                 fill="none"
                 viewBox="0 0 24 24"

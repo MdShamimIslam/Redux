@@ -1,11 +1,21 @@
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import updateBook from "../redux/books/thunk/updateBook";
+import { useEffect } from "react";
 import addBook from "../redux/books/thunk/addBook";
+import { clearSelectedBook } from "../redux/books/actions";
 
 
 const Form = () => {
-  const { register, handleSubmit,reset} = useForm();
+  const { register, handleSubmit,reset } = useForm();
   const dispatch = useDispatch();
+  const selectedBook = useSelector((state) => state.selectedBook);
+
+  useEffect(() => {
+    if (selectedBook) {
+      reset(selectedBook);
+    }
+  }, [selectedBook, reset]);
 
   const onSubmit = ({name,author,thumbnail,price,rating,featured}) => {
     const bookInfo = {
@@ -17,15 +27,28 @@ const Form = () => {
       rating:parseInt(rating)
 
     }
-    dispatch(addBook(bookInfo));
-    reset();
+
+    if (selectedBook) {
+      dispatch(updateBook(selectedBook.id, bookInfo));
+      dispatch(clearSelectedBook());
+      reset({
+        name: "",
+        author: "",
+        thumbnail: "",
+        price: "",
+        rating: "",
+        featured: false,
+      })
+    } else {
+      dispatch(addBook(bookInfo));
+      reset()
+    }
+
   };
-
-
 
   return (
     <div className="p-4 overflow-hidden bg-white shadow-cardShadow rounded-md">
-      <h4 className="mb-8 text-xl font-bold text-center">Add New Book</h4>
+      <h4 className="mb-8 text-xl font-bold text-center"> {selectedBook ? "Update Book" : "Add New Book"}</h4>
       <form className="book-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-2">
           <label htmlFor="name">Book Name</label>
@@ -105,7 +128,7 @@ const Form = () => {
         </div>
 
         <button type="submit" className="submit" id="submit">
-          Add Book
+        {selectedBook ? "Update Book" : "Add Book"}
         </button>
       </form>
     </div>
