@@ -1,7 +1,7 @@
 import { BiLike } from "react-icons/bi";
 import { BiDislike } from "react-icons/bi";
 
-const LinkeUnlike = () => {
+const LinkeUnlike = ({likes,unlikes}) => {
   return (
     <div className="flex gap-10 w-48">
     <div className="flex gap-1">
@@ -11,7 +11,7 @@ const LinkeUnlike = () => {
         <div
             className="text-sm leading-[1.7142857] text-slate-600"
         >
-            100K
+            {likes}
         </div>
     </div>
     <div className="flex gap-1">
@@ -21,7 +21,7 @@ const LinkeUnlike = () => {
         <div
             className="text-sm leading-[1.7142857] text-slate-600"
         >
-            100K
+           {unlikes}
         </div>
     </div>
 </div>
