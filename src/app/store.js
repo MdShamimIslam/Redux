@@ -1,8 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import videosReducer from '../features/videos/videosSlice';
+import postsReducer from '../features/posts/postsSlice';
+import postReducer from '../features/post/postSlice';
+import relatedPostsReducer from '../features/relatedPosts/relatedPostsSlice';
 
 export const store = configureStore({
     reducer:{
-        videos: videosReducer,
+        posts: postsReducer,
+        post: postReducer,
+        relatedPosts: relatedPostsReducer
     }
 })

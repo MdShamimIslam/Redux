@@ -1,16 +1,8 @@
+import Posts from "../components/Posts/Posts"
 
-import VideoGrid from "../components/Grid/VideoGrid";
-import Pagination from "../components/Pagination";
-import Tags from "../components/tags/Tags";
 
 const Home = () => {
-  return (
-    <>
-      <Tags />
-      <VideoGrid />
-      <Pagination />
-    </>
-  );
-};
+  return <Posts/>
+}
 
-export default Home;
+export default Home
