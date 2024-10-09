@@ -19,20 +19,25 @@ export const fetchAllPosts = createAsyncThunk(
   }
 );
 
-export const likePost = createAsyncThunk("posts/likePost", async (id, { getState }) => {
-    // TODO:-->
+export const likePost = createAsyncThunk(
+  "posts/likePost",
+  async (id, { getState }) => {
     const post = getState().posts.posts.find((p) => p.id === id);
     const updatedLikes = post.likes + 1;
     const updatedPost = await updateLikes(id, updatedLikes);
     return updatedPost;
-  });
-  
-  export const updateSavedPost = createAsyncThunk("posts/toggleSavedPost", async (id, { getState }) => {
+  }
+);
+
+export const updateSavedPost = createAsyncThunk(
+  "posts/toggleSavedPost",
+  async (id, { getState }) => {
     const post = getState().posts.posts.find((p) => p.id === id);
     const updatedSaved = !post.isSaved;
     const updatedPost = await updateSavedStatus(id, updatedSaved);
     return updatedPost;
-  });
+  }
+);
 
 const postsSlice = createSlice({
   name: "posts",
@@ -90,9 +95,11 @@ const postsSlice = createSlice({
         state.error = action.error?.message;
       })
 
-       // Handle updating likes
-       .addCase(likePost.fulfilled, (state, action) => {
-        const index = state.posts.findIndex((post) => post.id === action.payload.id);
+      // Handle updating likes
+      .addCase(likePost.fulfilled, (state, action) => {
+        const index = state.posts.findIndex(
+          (post) => post.id === action.payload.id
+        );
         if (index !== -1) {
           state.posts[index] = action.payload;
         }
@@ -100,7 +107,9 @@ const postsSlice = createSlice({
 
       // Handle toggling saved status
       .addCase(updateSavedPost.fulfilled, (state, action) => {
-        const index = state.posts.findIndex((post) => post.id === action.payload.id);
+        const index = state.posts.findIndex(
+          (post) => post.id === action.payload.id
+        );
         if (index !== -1) {
           state.posts[index] = action.payload;
         }

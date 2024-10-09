@@ -26,7 +26,7 @@ const BlogPosts = () => {
         </Link>
       </div>
       <section className="post-page-container">
-        <PostDetails post={post}/>
+        <PostDetails post={post} postId={post?.id} />
         <RelatedPosts currentId={post?.id} tags={post?.tags} />
       </section>
     </>

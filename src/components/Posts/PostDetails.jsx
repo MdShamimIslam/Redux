@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { likePost, toggleSavedPost } from "../../features/posts/postsSlice";
 
-const PostDetails = ({ post={} }) => {
+const PostDetails = ({ post, postId }) => {
   const dispatch = useDispatch();
   const savedPosts = useSelector((state) => state.posts.savedPosts);
 
-  // const findPost = useSelector((state) => state.posts.posts.find(p => p.id === postId));
-  // const {likes} = findPost;
+  const post2 = useSelector((state) => state.posts.posts.find((p) => p.id === postId));
 
 
   const { id, image, title, tags, likes, description } = post;
@@ -46,7 +45,7 @@ const PostDetails = ({ post={} }) => {
             id="lws-singleLinks"
           >
             <i className="fa-regular fa-thumbs-up"></i>
-            {likes}
+            { post2 ? post2?.likes : likes }
           </button>
           <button
             onClick={handleSaved}
