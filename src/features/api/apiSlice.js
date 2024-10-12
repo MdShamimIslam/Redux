@@ -5,14 +5,19 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:9000",
   }),
+  tagTypes: ["Videos", "Video", "RelatedVideos"],
   endpoints: (builder) => ({
     getVideos: builder.query({
       query: () => "/videos",
-      keepUnusedDataFor: 10 // auto refetch in 10s
+      keepUnusedDataFor: 600, // auto refetch in 10s
+      providesTags: ["Videos"]
     }),
 
     getVideo: builder.query({
       query: (id) => `/videos/${id}`,
+      providesTags: (result, error, arg) => [
+        { type: "Video", id: arg }
+      ]
     }),
 
     // STEP-1 NOT WORKING
@@ -26,23 +31,58 @@ export const apiSlice = createApi({
     //     return queryString;
     //   },
     // }),
-    
+
     // STEP-2 WORKING FINE
     getRelatedVideos: builder.query({
-        query: () => `/videos`,
-        transformResponse: (response, _meta, arg) => {
-          const { id, title } = arg; 
-          const tags = title.split(" ");
+      query: () => `/videos`,
+      transformResponse: (response, _meta, arg) => {
+        const { id, title } = arg;
+        const tags = title.split(" ");
 
-          return response
-            .filter((video) => 
-              tags.some((tag) => video.title.toLowerCase().includes(tag.toLowerCase())) &&
-              video.id !== id
-            )
-            .slice(0, 4);
-        }
+        return response
+          .filter(
+            (video) =>
+              tags.some((tag) =>
+                video.title.toLowerCase().includes(tag.toLowerCase())
+              ) && video.id !== id
+          )
+          .slice(0, 4);
+      },
+      providesTags: (result, error, arg) => [
+        { type: "RelatedVideos", id: arg.id }
+      ]
+    }),
+
+    addVideo: builder.mutation({
+      query: (data) => ({
+        url: "/videos",
+        method: "POST",
+        body: data,
+      }), 
+      invalidatesTags: ["Videos"]
+    }),
+    editVideo: builder.mutation({
+      query: ({id,data}) => ({
+        url: `/videos/${id}`,
+        method: "PATCH",
+        body: data,
       }),
+      invalidatesTags: (result, error, arg) => [
+        "Videos",
+        { type: "Video", id: arg.id },
+        { type: "RelatedVideos", id: arg.id }
+      ]
+    }),
+    deleteVideo: builder.mutation({
+      query: (id) => ({
+        url: `/videos/${id}`,
+        method: "DELETE"
+      }),
+      invalidatesTags:["Videos"]
+    }),
+
   }),
 });
 
-export const { useGetVideosQuery, useGetVideoQuery, useGetRelatedVideosQuery } = apiSlice;
+export const { useGetVideosQuery, useGetVideoQuery, useGetRelatedVideosQuery,useAddVideoMutation,useEditVideoMutation,useDeleteVideoMutation } =
+  apiSlice;

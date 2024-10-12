@@ -1,9 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useDeleteVideoMutation } from "../../features/api/apiSlice";
 
 const VideoDescription = ({ video }) => {
   const { title, date, id, description } = video;
+  const [ deleteVideo ] = useDeleteVideoMutation();
+  const navigate = useNavigate();
+
+  const handleDelete = () => {
+    deleteVideo(id);
+    navigate('/');
+  }
+
   return (
     <div>
       <h1 className="text-lg font-semibold tracking-tight text-slate-800">
@@ -21,8 +30,8 @@ const VideoDescription = ({ video }) => {
             <FaEdit />
           </Link>
 
-          <div className="flex gap-1">
-            <div className="text-xl text-red-600 leading-[1.7142857] cursor-pointer">
+          <div onClick={handleDelete} className="flex gap-1 cursor-pointer">
+            <div className="text-xl text-red-600 leading-[1.7142857] ">
               <RiDeleteBin6Line />
             </div>
           </div>

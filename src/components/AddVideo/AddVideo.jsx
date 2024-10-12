@@ -1,4 +1,16 @@
+import { useForm } from "react-hook-form";
+import { useAddVideoMutation } from "../../features/api/apiSlice";
+
 const AddVideo = () => {
+  // We got toople
+  const [ AddVideo, { isLoading, isSuccess, isError } ] = useAddVideoMutation();
+  const { register, handleSubmit, reset, error} = useForm();
+
+  const onSubmit = data => {
+    AddVideo(data);
+    reset();
+  };
+
   return (
     <section className="pt-6 pb-20 min-h-[calc(100vh_-_157px)]">
       <div className="max-w-7xl mx-auto px-5 lg:px-0">
@@ -12,7 +24,7 @@ const AddVideo = () => {
             </p>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="shadow overflow-hidden sm:rounded-md">
                 <div className="px-4 py-5 bg-white sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -25,7 +37,8 @@ const AddVideo = () => {
                       </label>
                       <input
                         type="text"
-                        name="first-name"
+                        name="title"
+                        {...register("title")}
                         id="first-name"
                         autoComplete="given-name"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -41,7 +54,8 @@ const AddVideo = () => {
                       </label>
                       <input
                         type="text"
-                        name="last-name"
+                        name="author"
+                        {...register("author")}
                         id="last-name"
                         autoComplete="family-name"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -58,7 +72,8 @@ const AddVideo = () => {
                       <div className="mt-1">
                         <textarea
                           id="about"
-                          name="about"
+                          name="description"
+                          {...register("description")}
                           rows="3"
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                         ></textarea>
@@ -77,7 +92,8 @@ const AddVideo = () => {
                       </label>
                       <input
                         type="text"
-                        name="email-address"
+                        name="link"
+                        {...register("link")}
                         id="email-address"
                         autoComplete="email"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -93,7 +109,8 @@ const AddVideo = () => {
                       </label>
                       <input
                         type="text"
-                        name="street-address"
+                        name="thumbnail"
+                        {...register("thumbnail")}
                         id="street-address"
                         autoComplete="street-address"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -109,7 +126,8 @@ const AddVideo = () => {
                       </label>
                       <input
                         type="text"
-                        name="city"
+                        name="date"
+                        {...register("date")}
                         id="city"
                         autoComplete="address-level2"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -125,7 +143,8 @@ const AddVideo = () => {
                       </label>
                       <input
                         type="text"
-                        name="region"
+                        name="duration"
+                        {...register("duration")}
                         id="region"
                         autoComplete="address-level1"
                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -141,7 +160,8 @@ const AddVideo = () => {
                       </label>
                       <input
                         type="text"
-                        name="postal-code"
+                        name="views"
+                        {...register("views")}
                         id="postal-code"
                         autoComplete="postal-code"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -151,6 +171,7 @@ const AddVideo = () => {
                 </div>
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <button
+                  disabled={isLoading}
                     type="submit"
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-indigo-500"
                   >
@@ -159,6 +180,8 @@ const AddVideo = () => {
                 </div>
               </div>
             </form>
+            {isError && <p className="text-red-700">{error}</p>}
+            {isSuccess && <p className="text-green-600 mt-6 text-center">Successfully Added</p>}
           </div>
         </div>
       </div>
