@@ -1,16 +1,22 @@
 {
-  "name": "json-server-videos",
+  "name": "json-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "json-server --watch db_videos.json  true --port 9000"
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node server.js",
+    "server": "json-server --watch db.json  true --port 9000"
   },
   "keywords": [],
   "author": "Md. Shamim Islam",
   "license": "ISC",
   "description": "",
+  "devDependencies": {
+    "json-server": "^0.17.4",
+    "json-server-auth": "^2.1.0"
+  },
   "dependencies": {
-    "json-server": "^1.0.0-beta.3"
+    "concurrently": "^9.0.1"
   }
 }

@@ -1,5 +1,6 @@
-import Navbar from "../Navbar/Navbar";
+
 import ChatBody from "./ChatBody/ChatBody";
+import Navbar from "./Navbar/Navbar";
 import Sidebar from "./Sidebar/Sidebar";
 
 const Inbox = () => {
