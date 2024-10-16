@@ -4,6 +4,7 @@ import Login from "../components/pages/Login/Login";
 import Registration from "../components/pages/Registration/Registration";
 import Conversation from "../components/pages/Conversation/Conversation";
 import Inbox from "../components/Inbox/Inbox";
+import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -21,11 +22,11 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/inbox",
-                element:<Conversation/>
+                element:<PrivateRoute><Conversation/></PrivateRoute>
             },
             {
                 path:"/inbox/:id",
-                element:<Inbox/>
+                element:<PrivateRoute><Inbox/></PrivateRoute>
             },
         ]
     }

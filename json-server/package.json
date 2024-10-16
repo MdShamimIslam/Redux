@@ -2,11 +2,11 @@
   "name": "json-server",
   "version": "1.0.0",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "node server.js",
-    "server": "json-server --watch db.json  true --port 9000"
+    "dev": "concurrently \"npm run client\" \"npm run start\"",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "Md. Shamim Islam",
@@ -17,6 +17,7 @@
     "json-server-auth": "^2.1.0"
   },
   "dependencies": {
-    "concurrently": "^9.0.1"
+    "concurrently": "^9.0.1",
+    "dotenv": "^16.4.5"
   }
 }

@@ -1,10 +1,34 @@
 {
   "users": [
     {
-      "email": "sumit@learnwithsumit.com",
-      "password": "$2a$10$Fsd8wqTFuS0ZO43wmX9zye2zRMwhJyNMJD/wLNn3NE8t1EAY4vRKm",
-      "name": "Sumit",
+      "email": "shamim@gmail.com",
+      "password": "$2a$10$Z.0/8ssp4Dhz07HPk54fneO2RCX4V81vTfG/F/siLcVK..E8bSizK",
+      "name": "Shamim",
       "id": 1
+    },
+    {
+      "email": "shamim401897@gmail.com",
+      "password": "$2a$10$IwLqAHPigZwRfWyiPi0RUOfn/TO/zSbKwfjhX3vTGbupiEuP8Dooa",
+      "name": "Md. Shamim Islam",
+      "id": 2
+    },
+    {
+      "email": "samim2@gmail.com",
+      "password": "$2a$10$TGH4fUe3hDax70WKKHdaw.78RvkdUVx8RT4CoDtKKILAJVH3WF25u",
+      "name": "samim",
+      "id": 3
+    },
+    {
+      "email": "shamim40189@gmail.com",
+      "password": "$2a$10$TyRDAr4c0GDg/qO7D/VuxuoZjsnt.Qbw8m0Zu43BGuSUSUgpJ87oq",
+      "name": "Md. Shamim Islam",
+      "id": 4
+    },
+    {
+      "email": "shamim0@gmail.com",
+      "password": "$2a$10$G8wo9wW.Cl2be5QcoS/ntOAMQ3Ivy8oCn3TRVvTg3P68GMsMfk6d6",
+      "name": "Md. Shamim Islam",
+      "id": 5
     }
   ],
   "conversations": [
